@@ -1,5 +1,5 @@
 # Creating custom windows ISO
-You can create a custom Windows installation image that includes your prefered software and settings. Once you have the 'Technician Machine' (in this case, a Hyper-V VM) set up, it's relatively painless to update and create a new ISO.
+You can create a custom Windows installation image that includes your prefered software and settings. This is useful for repetitive Windows installations.  Once you have the 'Technician Machine' (in this case, a Hyper-V VM) set up, it's relatively painless to update and create a new ISO.  If you're looking for the windows equivalent of Kali Live, look into Windows To Go via Rufus (see notes below).
 
 ## Prepare Host Machine
 
@@ -68,6 +68,10 @@ Unmount the VHD in diskmgmt.
 #### Create a new ISO
 On the host machine, open ADK's Deployment Tools as administrator (Start > All Apps > Windows Kits). Run the following command to create a new ISO file: `oscdimg -m -o -u2 -udfver102 -bootdata:2#p0,e,bC:\myWindowsISO\boot\etfsboot.com#pEF,e,bC:\myWindowsISO\efi\microsoft\boot\efisys.bin C:\myWindowsISO C:\myNewWindowsISO.iso`
 
+# Notes
+
+#### Windows To Go
+- Rufus can burn an ISO as a bootable 'Windows To Go' USB drive.  If you've followed this guide, the Windows To Go option in Rufus may fail when it attempts to create it's own unattend.xml file (this may depend on the options chosen). See unattend-wintogo.xml in this repository for an example of the unattend file that Rufus creates. For Windows To Go, you probably don't want to create a custom ISO.  Instead, you can use Rufus to burn the standard ISO to a USB drive and then customize the installation on the USB drive.  After burning the ISO on the USB drive, you will still need to go through the install process, but then you will be able to boot directly from the USB and make persistant changes.
 
 # References
 https://www.xda-developers.com/how-create-custom-windows-iso/
